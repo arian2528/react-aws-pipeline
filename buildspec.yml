@@ -7,24 +7,32 @@ phases:
       - echo Installing Node 16...
       - curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&\
       - apt install -y nodejs
+      
       # install Yarn
-      - echo Installing Yarn...
-      - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-      - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-      - apt install --no-install-recommends yarn
+      # Future reference
+      #- echo Installing Yarn...
+      #- curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+      #- echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+      #- apt install --no-install-recommends yarn
+      
+      # install npm
+      - echo Installing NPM...
+      - curl -sL https://deb.nodesource.com/setup_14.x | bash -
+      - apt install nodejs
+      
   pre_build:
     commands:
       # install dependencies
       - echo Installing dependencies...
-      - yarn
+      - npm install
   build:
     commands:
       # test
       - echo Testing...
-      - yarn test
+      - npm test
       # build
       - echo Building...
-      - yarn build
+      - npm build
 artifacts:
   files:
     - "**/*"
