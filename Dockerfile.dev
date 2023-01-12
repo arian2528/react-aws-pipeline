@@ -1,0 +1,37 @@
+FROM node:alpine
+
+WORKDIR /app
+
+
+COPY package*.json ./
+
+
+# new from https://ncoughlin.com/posts/aws-codepipeline-dockerized-react-s3/
+# make node modules folder
+RUN mkdir -p /app/node_modules
+# recursive ownership for user node on all files in app
+RUN chown -R node:node /app
+
+RUN npm install yarn
+
+RUN yarn
+
+COPY . .
+
+EXPOSE 3000
+
+# I do it again so it also takes the new files created  after installing
+# recursive ownership for user node on all files in app
+RUN chown -R node:node /app
+
+# If I need test I need another Dockerfile for production
+#Multi-stage Dockerfile for testing
+# https://docs.docker.com/language/nodejs/run-tests/
+
+# new
+CMD ["yarn", "start"]
+
+# new from https://ncoughlin.com/posts/aws-codepipeline-dockerized-react-s3/
+USER node
+
+

@@ -2,40 +2,27 @@ version: 0.2
 
 phases:
   install:
+    runtime-versions:
+      docker: 19
+
     commands:
-      # install Node 16
-      - echo Installing Node 16...
-      - curl -fsSL https://deb.nodesource.com/setup_16.x | bash - &&\
-      - apt install -y nodejs
-      
-      # install Yarn
-      # Future reference
-      #- echo Installing Yarn...
-      #- curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-      #- echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-      #- apt install --no-install-recommends yarn
-      
-      # install npm
-      - echo Installing NPM...
-      - curl -sL https://deb.nodesource.com/setup_14.x | bash -
-      - apt install nodejs
-      
-  pre_build:
-    commands:
-      # install dependencies
-      - echo Installing dependencies...
-      - npm install
+      # log in to docker account to prevent rate limiting
+      - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+      # build the Docker image for the application
+      - docker build -t react-app-aws-codepipeline:latest -f Dockerfile.prod .
+
   build:
     commands:
-      # test
-      - echo Testing...
-      - npm test
-      # build
-      - echo Building...
-      - npm build
+      # run container from built image (builds production files)
+      - docker run react-app-aws-codepipeline:latest
+      # set container id to variable
+      - CONTAINER=$(docker ps -alq)
+      # copy build files from container to host
+      - docker cp $CONTAINER:/app/build/ $CODEBUILD_SRC_DIR/build
+
 artifacts:
+  # include all files required to run application
+  # we include only the static build files
   files:
     - "**/*"
-  discard-paths: no
-  base-directory: build 
-     
+  base-directory: "build"
