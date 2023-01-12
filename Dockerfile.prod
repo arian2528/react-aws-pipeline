@@ -9,15 +9,19 @@ RUN mkdir -p /app/node_modules
 # recursive ownership for user node on all files in app
 RUN chown -R node:node /app
 
+RUN npm install yarn
+
+RUN yarn
+
 FROM base as test
-RUN npm ci
+RUN yarn
 COPY . .
-CMD [ "npm", "test" ]
+CMD [ "yarn", "test" ]
 
 FROM base as prod
-RUN npm ci --production
+RUN yarn
 COPY . .
-CMD ["npm", "build"]
+CMD ["yarn", "build"]
 
 RUN chown -R node:node /app
 
