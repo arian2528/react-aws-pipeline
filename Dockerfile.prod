@@ -13,15 +13,12 @@ RUN npm install yarn
 
 RUN yarn
 
-FROM base as test
+FROM base
 RUN yarn
 COPY . .
-CMD [ "yarn", "test" ]
 
-FROM base as prod
-RUN yarn
-COPY . .
-CMD ["yarn", "build"]
+RUN CI=true npm test
+RUN yarn build
 
 RUN chown -R node:node /app
 
