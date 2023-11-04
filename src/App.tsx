@@ -1,13 +1,33 @@
 import React from 'react';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
+import CreateTicket from './routes/CreateTicket';
+import BrowseTickets from './routes/BrowseTickets';
 
-function App() {
+export const LocationDisplay = () => {
+  const location = useLocation();
+
+  return (<div data-testid="location-display">{location.pathname}</div>)
+};
+
+const NoMatch = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={'https://img.freepik.com/free-vector/hand-drawn-construction-background_23-2147734520.jpg?w=996&t=st=1698951595~exp=1698952195~hmac=0dd66dca64dfc0fc4e054e1289b7801caa040ed963d6dbc218daf5aad1063932'} className="App-logo" alt="logo" />
-        <p>Basic React app using Docker, Hook up to AWS CI/CD CodePipeline on S3 using GitHub Actions</p>
-      </header>
+    <div>
+      <h2>No match for this route</h2>
+    </div>
+  );
+}
+
+const App = (): JSX.Element => {
+  return (
+    <div>
+      <Routes>
+        <Route path="/" element={<CreateTicket />} />
+        <Route path="/tickets" element={<BrowseTickets />} />
+        <Route path="*" element={<NoMatch />} />
+      </Routes>
+
+      <LocationDisplay />
     </div>
   );
 }
