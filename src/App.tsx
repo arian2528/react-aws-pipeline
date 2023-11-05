@@ -3,6 +3,7 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import './App.css';
 import CreateTicket from './routes/CreateTicket';
 import BrowseTickets from './routes/BrowseTickets';
+import { GetTickets as TicketsLoader } from './utils/TicketLoder';
 
 export const LocationDisplay = () => {
   const location = useLocation();
@@ -18,12 +19,16 @@ const NoMatch = () => {
   );
 }
 
+const errorElement = () => {
+  return (<h2>Something went wrong</h2>);
+}
+
 const App = (): JSX.Element => {
   return (
     <div>
       <Routes>
         <Route path="/" element={<CreateTicket />} />
-        <Route path="/tickets" element={<BrowseTickets />} />
+        <Route path="/tickets" loader={TicketsLoader} errorElement={errorElement()} element={<BrowseTickets />} />
         <Route path="*" element={<NoMatch />} />
       </Routes>
 
