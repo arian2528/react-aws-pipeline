@@ -8,4 +8,13 @@ describe('CreateTicket', () => {
         const linkElement = screen.getByText(/Create Ticket/i)
         expect(linkElement).toBeInTheDocument();
     });
+
+    test('renders button Submit Ticket in form', () => {
+        render(<CreateTicket/>);
+        const linkElement = screen.queryByTestId('buttonSubmit')
+        expect(linkElement).toBeInTheDocument();
+        expect(linkElement).toHaveAttribute('type', 'submit');
+        expect(linkElement).toHaveTextContent('Submit Ticket');
+    });
+
 });
