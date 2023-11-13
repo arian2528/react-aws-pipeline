@@ -9,6 +9,7 @@ import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultR
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { blue, green, yellow } from '@mui/material/colors';
 import SelectImportName from './SelectImportName';
+import ScheduleUsingSocialDistancing from './ScheduleUsingSocialDistancing';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -88,14 +89,12 @@ export const UploadModal = ({open, handleClose}: ModalProps) => {
                             </Typography>
                         </Box>
                         <FormControl fullWidth size='small'>
-                        <Grid container spacing={2} sx={{paddingTop: '10px'}}>
+                        <Grid container spacing={6} sx={{paddingTop: '10px'}}>
                             <Grid item xs={12} md={7}>
                                 <SelectImportName />
                             </Grid>
                             <Grid item xs={12} md={5}>
-                                <Typography align='center' variant="h6" component="h2">
-                                    Right side
-                                </Typography>
+                                <ScheduleUsingSocialDistancing />
                             </Grid>
                         </Grid>
                         </FormControl>  
