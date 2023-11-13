@@ -30,8 +30,9 @@ const TitleStyle = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    gap: '10px',
+    gap: '50px',
     width: '100%',
+    marginBottom: '50px',
 }
 
 const theme = createTheme({
@@ -89,12 +90,14 @@ export const UploadModal = ({open, handleClose}: ModalProps) => {
                             </Typography>
                         </Box>
                         <FormControl fullWidth size='small'>
-                        <Grid container spacing={6} sx={{paddingTop: '10px'}}>
+                        <Grid container spacing={6}>
                             <Grid item xs={12} md={7}>
                                 <SelectImportName />
+                                <Divider sx={{marginTop: '20px', marginBottom: '20px', width: '50%'}} />
                             </Grid>
                             <Grid item xs={12} md={5}>
                                 <ScheduleUsingSocialDistancing />
+                                <Divider sx={{marginTop: '20px', marginBottom: '20px', width: '70%'}} />
                             </Grid>
                         </Grid>
                         </FormControl>  

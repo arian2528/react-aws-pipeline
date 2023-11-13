@@ -17,13 +17,14 @@ const ScheduleUsingSocialDistancing = () => {
 
     return (
         <Fragment>
-            <FormLabel id="demo-row-radio-buttons-group-label">Split schedule using social distancing?</FormLabel>
+            <FormLabel sx={{color: 'primary.dark'}} id="demo-row-radio-buttons-group-label">Split schedule using social distancing?</FormLabel>
             <RadioGroup
                 row
                 aria-labelledby="demo-row-radio-buttons-group-label"
                 name="row-radio-buttons-group"
                 value={scheduleUsingSocialDistancing}
                 onChange={(event) => setScheduleUsingSocialDistancing(event.target.value)}
+                sx={{color: 'primary.dark'}}
             >
                 {scheduleUsingSocialDistancingOptions && scheduleUsingSocialDistancingOptions.map((option) => (
                     <FormControlLabel key={option.value} value={option.value} control={<Radio />} label={option.label} />

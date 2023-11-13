@@ -18,7 +18,7 @@ const SelectImportName = () => {
     
     return (
         <React.Fragment>
-            <InputLabel id='import-name' sx={{color: 'primary.dark', paddingTop: '10px'}}>Select Import Name: </InputLabel>
+            <InputLabel id='import-name' sx={{color: 'primary.dark'}}>Select Import Name: </InputLabel>
             <Select
                 labelId='import-name'
                 id='import-name'
