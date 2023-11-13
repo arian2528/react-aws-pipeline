@@ -1,13 +1,32 @@
 import React from 'react';
 import './App.css';
+import styled from 'styled-components';
+import { Container, Link } from '@mui/material';
+import { UploadModal } from './components/UploadModal';
+
+const Wrapper = styled.div({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  margin: '2%',
+  gap: '10px',
+});
 
 function App() {
+  const [openModal, setOpenModal] = React.useState(false);
+
+  const handleClose = () => {
+    setOpenModal(false);
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={'https://img.freepik.com/free-vector/hand-drawn-construction-background_23-2147734520.jpg?w=996&t=st=1698951595~exp=1698952195~hmac=0dd66dca64dfc0fc4e054e1289b7801caa040ed963d6dbc218daf5aad1063932'} className="App-logo" alt="logo" />
-        <p>Basic React app using Docker, Hook up to AWS CI/CD CodePipeline on S3 using GitHub Actions</p>
-      </header>
+      <Wrapper>
+        <Container maxWidth="sm">
+          <Link component="button" onClick={() => setOpenModal(true)}>Upload Manifest</Link>
+        </Container>    
+      </Wrapper>
+      <UploadModal  open={openModal} handleClose={handleClose} />
     </div>
   );
 }
