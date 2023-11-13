@@ -4,10 +4,11 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
-import { Divider, Grid, IconButton, Stack, styled } from '@mui/material';
+import { Divider, FormControl, Grid, IconButton, InputLabel, Select, Stack, styled } from '@mui/material';
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { blue, green, yellow } from '@mui/material/colors';
+import SelectImportName from './SelectImportName';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -86,18 +87,18 @@ export const UploadModal = ({open, handleClose}: ModalProps) => {
                                 Document upload
                             </Typography>
                         </Box>
+                        <FormControl fullWidth size='small'>
                         <Grid container spacing={2} sx={{paddingTop: '10px'}}>
                             <Grid item xs={12} md={7}>
-                                <Typography align='center' variant="h6" component="h2">
-                                    Left side
-                                </Typography>
+                                <SelectImportName />
                             </Grid>
                             <Grid item xs={12} md={5}>
                                 <Typography align='center' variant="h6" component="h2">
                                     Right side
                                 </Typography>
                             </Grid>
-                        </Grid>    
+                        </Grid>
+                        </FormControl>  
                     </ThemeProvider>
                 </Box>
             </Fade>
