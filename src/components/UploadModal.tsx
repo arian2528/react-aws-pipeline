@@ -4,14 +4,15 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Fade from '@mui/material/Fade';
 import Typography from '@mui/material/Typography';
-import { Divider, FormControl, Grid, IconButton, InputLabel, Select, Stack, styled } from '@mui/material';
+import { Button, ButtonProps, Divider, FormControl, Grid, IconButton, InputLabel, Select, Stack, styled } from '@mui/material';
 import DisabledByDefaultRoundedIcon from '@mui/icons-material/DisabledByDefaultRounded';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { blue, green, yellow } from '@mui/material/colors';
+import { blue, green, yellow, orange } from '@mui/material/colors';
 import SelectImportName from './SelectImportName';
 import ScheduleUsingSocialDistancing from './ScheduleUsingSocialDistancing';
 import LocationChecking from './LocationChecking';
 import ClientIdentification from './ClientIdentification';
+import ElapseDataChecking from './ElapseDataChecking';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -53,9 +54,9 @@ const theme = createTheme({
             contrastText: '#000000',
         },
         warning: {
-            main: yellow[500],
-            light: yellow[200],
-            dark: yellow[900],
+            main: orange[500],
+            light: orange[200],
+            dark: orange[900],
             contrastText: '#000000',
         },
     },
@@ -65,13 +66,31 @@ const theme = createTheme({
             'sans-serif',
         ].join(','),
         fontWeightBold: 600,
-    },
+    }
   });
 
 interface ModalProps {
     open: boolean;
     handleClose: () => void;
 }
+
+const SubmitButton = styled(Button)<ButtonProps>(({ theme }) => ({
+    color: 'white',
+    backgroundColor: blue[900],
+    '&:hover': {
+        backgroundColor: blue[700],
+    },
+    fontWeight: '600',
+    textTransform: 'none',
+    width: '200px',
+}));
+
+const CancelButton = styled(Button)<ButtonProps>(({ theme }) => ({
+    fontWeight: '600',
+    textTransform: 'none',
+    borderWidth: '3px',
+    width: '200px',
+}));
 
 export const UploadModal = ({open, handleClose}: ModalProps) => {
 
@@ -103,6 +122,8 @@ export const UploadModal = ({open, handleClose}: ModalProps) => {
                             <Grid item xs={12} md={7}>
                                 <SelectImportName />
                                 <Divider sx={{marginTop: '20px', marginBottom: '20px', width: '50%'}} />
+                                <ElapseDataChecking />
+                                <Divider sx={{marginTop: '20px', marginBottom: '20px', width: '50%'}} />
                             </Grid>
                             <Grid item xs={12} md={5}>
                                 <ScheduleUsingSocialDistancing />
@@ -112,6 +133,15 @@ export const UploadModal = ({open, handleClose}: ModalProps) => {
                                 <ClientIdentification />
                             </Grid>
                         </Grid>
+                        <Box sx={{...TitleStyle, marginBottom: '20px'}}>
+                            <Typography color='primary.dark' align='center' variant="h5" component="h4" paddingTop={4} fontWeight='fontWeightBold'>
+                                Data in the import file is correct. Please press Continue to import.
+                            </Typography>
+                        </Box>
+                        <Stack direction="row" spacing={2} justifyContent='center'>
+                            <SubmitButton variant="contained">Continue Import</SubmitButton>
+                            <CancelButton variant="outlined" color='warning'>Cancel</CancelButton>
+                        </Stack>
                     </ThemeProvider>
                 </Box>
             </Fade>
