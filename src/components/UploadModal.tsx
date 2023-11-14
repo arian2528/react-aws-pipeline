@@ -10,10 +10,12 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { blue, green, yellow } from '@mui/material/colors';
 import SelectImportName from './SelectImportName';
 import ScheduleUsingSocialDistancing from './ScheduleUsingSocialDistancing';
+import LocationChecking from './LocationChecking';
+import ClientIdentification from './ClientIdentification';
 
 const style = {
     position: 'absolute' as 'absolute',
-    top: '20%',
+    top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: '80%',
@@ -23,6 +25,7 @@ const style = {
     borderRadius: '10px',
     p: 4,
     textColor: '#0d47a1', 
+    fontWeight: '600',
 };
 
 const TitleStyle = {
@@ -56,6 +59,13 @@ const theme = createTheme({
             contrastText: '#000000',
         },
     },
+    typography: {
+        fontFamily: [
+            'Roboto',
+            'sans-serif',
+        ].join(','),
+        fontWeightBold: 600,
+    },
   });
 
 interface ModalProps {
@@ -81,15 +91,14 @@ export const UploadModal = ({open, handleClose}: ModalProps) => {
             }}
         >
             <Fade in={open}>
-                <Box sx={style}>
+                <Box sx={style} fontWeight="fontWeightBold">
                     <ThemeProvider theme={theme}>
-                        <IconButton sx={{ fontSize: 20 }} onClick={handleClose}><DisabledByDefaultRoundedIcon sx={{ color: blue[900]}} /></IconButton>
+                        <IconButton sx={{ fontSize: 20 }} onClick={handleClose}><DisabledByDefaultRoundedIcon sx={{ color: 'primary.dark'}} /></IconButton>
                         <Box sx={TitleStyle}>
-                            <Typography color='primary.dark' align='center' variant="h4" component="h2" paddingBottom={1} borderBottom='1px solid rgba(0, 0, 0, .12)'>
+                            <Typography color='primary.dark' align='center' variant="h4" component="h2" paddingBottom={1} borderBottom='1px solid rgba(0, 0, 0, .12)' fontWeight='fontWeightBold'>
                                 Document upload
                             </Typography>
                         </Box>
-                        <FormControl fullWidth size='small'>
                         <Grid container spacing={6}>
                             <Grid item xs={12} md={7}>
                                 <SelectImportName />
@@ -98,9 +107,11 @@ export const UploadModal = ({open, handleClose}: ModalProps) => {
                             <Grid item xs={12} md={5}>
                                 <ScheduleUsingSocialDistancing />
                                 <Divider sx={{marginTop: '20px', marginBottom: '20px', width: '70%'}} />
+                                <LocationChecking />
+                                <Divider sx={{marginTop: '20px', marginBottom: '20px', width: '70%'}} />
+                                <ClientIdentification />
                             </Grid>
                         </Grid>
-                        </FormControl>  
                     </ThemeProvider>
                 </Box>
             </Fade>

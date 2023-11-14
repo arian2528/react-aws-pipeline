@@ -1,4 +1,4 @@
-import { InputLabel, MenuItem, Select } from "@mui/material";
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React, { useState } from "react";
 
 export interface importNameOptions {
@@ -10,7 +10,6 @@ const SelectImportName = () => {
     const [importName, setImportName] = useState<string>('');
 
     const importNameOptions: importNameOptions[] = [
-        {value: '', label: 'Select Import Name'},
         {value: '1', label: 'Import Name 1'},
         {value: '2', label: 'Import Name 2'},
         {value: '3', label: 'Import Name 3'},
@@ -18,9 +17,10 @@ const SelectImportName = () => {
     
     return (
         <React.Fragment>
-            <InputLabel id='import-name' sx={{color: 'primary.dark'}}>Select Import Name: </InputLabel>
+            <FormControl fullWidth>
+            <InputLabel id='import-name-label' sx={{color: 'primary.dark', fontWeight: 'fontWeightBold'}}>Select Import Name: </InputLabel>
             <Select
-                labelId='import-name'
+                labelId='import-name-label'
                 id='import-name'
                 label='Select Import Name:'
                 fullWidth
@@ -34,6 +34,7 @@ const SelectImportName = () => {
                     </MenuItem>
                 ))}
             </Select>
+            </FormControl>
         </React.Fragment>
     );
 }
