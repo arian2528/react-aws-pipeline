@@ -13,6 +13,7 @@ import ScheduleUsingSocialDistancing from './ScheduleUsingSocialDistancing';
 import LocationChecking from './LocationChecking';
 import ClientIdentification from './ClientIdentification';
 import ElapseDataChecking from './ElapseDataChecking';
+import ToleranceWindow from './ToleranceWindow';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -124,6 +125,7 @@ export const UploadModal = ({open, handleClose}: ModalProps) => {
                                 <Divider sx={{marginTop: '20px', marginBottom: '20px', width: '50%'}} />
                                 <ElapseDataChecking />
                                 <Divider sx={{marginTop: '20px', marginBottom: '20px', width: '50%'}} />
+                                <ToleranceWindow />
                             </Grid>
                             <Grid item xs={12} md={5}>
                                 <ScheduleUsingSocialDistancing />
