@@ -7,7 +7,7 @@ const ElapseDataChecking = () => {
     return (
         <Fragment>
             <FormLabel sx={{color: 'primary.dark', fontWeight: 'fontWeightBold'}} id="elapsed-data-checking">Elapsed Data Checking:</FormLabel>
-            <Typography aria-labelledby="elapsed-data-checking" variant="body1" sx={{color: 'secondary.dark', fontWeight: 'fontWeightBold'}}>{elapsedDataCheckingMockedDefault}</Typography>
+            <Typography aria-labelledby="elapsed-data-checking" variant="body1" sx={{color: 'secondary.dark', fontWeight: 'fontWeightBold', paddingTop: 1}}>{elapsedDataCheckingMockedDefault}</Typography>
         </Fragment>
     )
 }
