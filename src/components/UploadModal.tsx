@@ -15,12 +15,12 @@ import ClientIdentification from './ClientIdentification';
 import ElapseDataChecking from './ElapseDataChecking';
 import ToleranceWindow from './ToleranceWindow';
 
-const style = {
+const modal = {
     position: 'absolute' as 'absolute',
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: '80%',
+    width: '60%',
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -28,9 +28,14 @@ const style = {
     p: 4,
     textColor: '#0d47a1', 
     fontWeight: '600',
+    padding: '10px 10px'
 };
 
-const TitleStyle = {
+const container = {
+    padding: '0 80px 20px'
+}
+
+const title = {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',
@@ -111,10 +116,14 @@ export const UploadModal = ({open, handleClose}: ModalProps) => {
             }}
         >
             <Fade in={open}>
-                <Box sx={style} fontWeight="fontWeightBold">
+                
+                <Box sx={modal} fontWeight="fontWeightBold">
                     <ThemeProvider theme={theme}>
-                        <IconButton sx={{ fontSize: 20 }} onClick={handleClose}><DisabledByDefaultRoundedIcon sx={{ color: 'primary.dark'}} /></IconButton>
-                        <Box sx={TitleStyle}>
+                    <Stack direction="column" spacing={1} justifyContent='flex-end'>
+                        <Box>
+                        <IconButton sx={{ fontSize: '3rem' }} onClick={handleClose}><DisabledByDefaultRoundedIcon sx={{ color: 'primary.dark'}} /></IconButton>
+                        <Box sx={container}>
+                        <Box sx={title}>
                             <Typography color='primary.dark' align='center' variant="h4" component="h2" paddingBottom={1} borderBottom='1px solid rgba(0, 0, 0, .12)' fontWeight='fontWeightBold'>
                                 Document upload
                             </Typography>
@@ -135,7 +144,7 @@ export const UploadModal = ({open, handleClose}: ModalProps) => {
                                 <ClientIdentification />
                             </Grid>
                         </Grid>
-                        <Box sx={{...TitleStyle, marginBottom: '20px'}}>
+                        <Box sx={{...title, marginBottom: '20px'}}>
                             <Typography color='primary.dark' align='center' variant="h5" component="h4" paddingTop={4} fontWeight='fontWeightBold'>
                                 Data in the import file is correct. Please press Continue to import.
                             </Typography>
@@ -144,6 +153,9 @@ export const UploadModal = ({open, handleClose}: ModalProps) => {
                             <SubmitButton variant="contained">Continue Import</SubmitButton>
                             <CancelButton variant="outlined" color='warning'>Cancel</CancelButton>
                         </Stack>
+                        </Box>
+                        </Box>
+                    </Stack>
                     </ThemeProvider>
                 </Box>
             </Fade>

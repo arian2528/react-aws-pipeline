@@ -77,7 +77,7 @@ const ClientIdentification = () => {
             </RadioGroup>
             
                 <div>
-                    <Grid container spacing={1} width='60%' paddingTop={2}>
+                    <Grid container spacing={1} width='100%' paddingTop={2}>
                         {testingCenterList && testingCenterList.map((testingCenter) => (
                             <Fragment>
                             <Grid item xs={12} md={5}>
