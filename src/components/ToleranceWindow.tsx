@@ -57,23 +57,22 @@ const IOSSwitch = styled((props: SwitchProps) => (
 
 const ToleranceWindow = () => {
     return (
-        <Fragment>
-            <FormLabel sx={{color: 'primary.dark', fontWeight: 'fontWeightBold'}} id="tolerance-window">Tolerance Window:</FormLabel>
-              <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1, height: '20px' }}>
-                <Stack direction="row" spacing={2} alignItems="center" height='20px'>
-                  <Stack direction="row" spacing={1} alignItems="center">
-                    <IOSSwitch sx={{ m: 1 }} defaultChecked onClick={() => console.log()}/>
-                    <Typography color='primary.dark'>Toggle ON</Typography>
-                  </Stack>
-                  <Divider orientation="vertical" variant="middle" sx={{background: 'black'}} flexItem />
-                  <Stack direction="row" spacing={1} alignItems="center">
-                    <AccessTimeIcon sx={{color: 'primary.dark', height: '2em'}} />
-                    <Typography color='primary.dark'>Select Tolerance Level</Typography>
-                  </Stack>
-                </Stack>
-              </Box>
-
-        </Fragment>
+      <Fragment>
+        <FormLabel sx={{color: 'primary.dark', fontWeight: 'fontWeightBold'}} id="tolerance-window">Tolerance Window:</FormLabel>
+        <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1, height: '20px', paddingTop: 1 }}>
+          <Stack direction="row" spacing={2} alignItems="center" height='20px'>
+            <Stack direction="row" spacing={1} alignItems="center">
+              <IOSSwitch sx={{ m: 1 }} defaultChecked onClick={() => console.log()}/>
+              <Typography color='primary.dark'>Toggle ON</Typography>
+            </Stack>
+            <Divider orientation="vertical" variant="middle" sx={{background: 'black'}} flexItem />
+            <Stack direction="row" spacing={1} alignItems="center">
+              <AccessTimeIcon sx={{color: 'primary.dark', height: '2em'}} />
+              <Typography color='primary.dark'>Select Tolerance Level</Typography>
+            </Stack>
+          </Stack>
+        </Box>
+      </Fragment>
     )
 }
 

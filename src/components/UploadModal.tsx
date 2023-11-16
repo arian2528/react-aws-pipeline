@@ -93,7 +93,7 @@ export const UploadModal = ({open, handleClose}: ModalProps) => {
                     <ThemeProvider theme={theme}>
                     <Stack direction="column" spacing={1} justifyContent='flex-end'>
                         <Box>
-                        <IconButton sx={{ fontSize: '3rem' }} onClick={handleClose}><DisabledByDefaultRoundedIcon sx={{ color: 'primary.dark'}} /></IconButton>
+                        <IconButton sx={{ color: 'primary.dark' }} onClick={handleClose}><DisabledByDefaultRoundedIcon sx={{ fontSize: '3rem' }} /></IconButton>
                         <Box sx={container}>
                         <Box sx={title}>
                             <Typography color='primary.dark' align='center' variant="h4" component="h2" paddingBottom={1} borderBottom='1px solid rgba(0, 0, 0, .12)' fontWeight='fontWeightBold'>
@@ -119,7 +119,7 @@ export const UploadModal = ({open, handleClose}: ModalProps) => {
                             </Grid>
                         </Grid>
                         <Box sx={{...title, marginBottom: '20px'}}>
-                            <Typography color='primary.dark' align='center' variant="h5" component="h4" paddingTop={4} fontWeight='fontWeightBold'>
+                            <Typography color='primary.dark' align='center' variant="h6" component="h6" paddingTop={4} fontWeight='fontWeightBold'>
                                 Data in the import file is correct. Please press Continue to import.
                             </Typography>
                         </Box>
