@@ -14,6 +14,8 @@ import LocationChecking from './LocationChecking';
 import ClientIdentification from './ClientIdentification';
 import ElapseDataChecking from './ElapseDataChecking';
 import ToleranceWindow from './ToleranceWindow';
+import UploadManifest from './UploadManifest';
+import theme from '../styles/theme';
 
 const modal = {
     position: 'absolute' as 'absolute',
@@ -45,42 +47,12 @@ const title = {
     marginBottom: '50px',
 }
 
-const theme = createTheme({
-    palette: {
-      primary: {
-            main: blue[700],
-            light: blue[200],
-            dark: blue[900],
-            contrastText: '#000000',
-        },
-      secondary: {
-            main: green[500],
-            light: green[200],
-            dark: green[900],
-            contrastText: '#000000',
-        },
-        warning: {
-            main: orange[500],
-            light: orange[200],
-            dark: orange[900],
-            contrastText: '#000000',
-        },
-    },
-    typography: {
-        fontFamily: [
-            'Roboto',
-            'sans-serif',
-        ].join(','),
-        fontWeightBold: 600,
-    }
-  });
-
 interface ModalProps {
     open: boolean;
     handleClose: () => void;
 }
 
-const SubmitButton = styled(Button)<ButtonProps>(({ theme }) => ({
+export const SubmitButton = styled(Button)<ButtonProps>(({ theme }) => ({
     color: 'white',
     backgroundColor: blue[900],
     '&:hover': {
@@ -132,6 +104,8 @@ export const UploadModal = ({open, handleClose}: ModalProps) => {
                             <Grid item xs={12} md={7}>
                                 <SelectImportName />
                                 <Divider sx={{marginTop: '20px', marginBottom: '20px', width: '50%'}} />
+                                <UploadManifest />
+                                <Divider sx={{marginTop: '20px', marginBottom: '20px', width: '100%'}} />
                                 <ElapseDataChecking />
                                 <Divider sx={{marginTop: '20px', marginBottom: '20px', width: '50%'}} />
                                 <ToleranceWindow />
