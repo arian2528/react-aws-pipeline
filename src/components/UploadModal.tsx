@@ -14,7 +14,7 @@ import LocationChecking from './LocationChecking';
 import ClientIdentification from './ClientIdentification';
 import ElapseDataChecking from './ElapseDataChecking';
 import ToleranceWindow from './ToleranceWindow';
-import UploadManifest from './UploadManifest';
+import {UploadManifest} from './UploadManifest';
 import theme from '../styles/theme';
 
 const modal = {
@@ -105,7 +105,6 @@ export const UploadModal = ({open, handleClose}: ModalProps) => {
                                 <SelectImportName />
                                 <Divider sx={{marginTop: '20px', marginBottom: '20px', width: '50%'}} />
                                 <UploadManifest />
-                                <Divider sx={{marginTop: '20px', marginBottom: '20px', width: '100%'}} />
                                 <ElapseDataChecking />
                                 <Divider sx={{marginTop: '20px', marginBottom: '20px', width: '50%'}} />
                                 <ToleranceWindow />

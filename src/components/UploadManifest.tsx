@@ -1,9 +1,29 @@
-import { FormLabel, Box, Typography, Button } from "@mui/material";
-import React from "react";
+import { FormLabel, Box, Typography, Button, Divider, Theme } from "@mui/material";
+import { makeStyles } from "@mui/material/styles";
+import React, { useCallback, useEffect, useState } from "react";
 import { SubmitButton } from "./UploadModal";
 import TextSnippetIcon from '@mui/icons-material/TextSnippet';
+import { PostUploadFile } from "./UploadFile/PostUploadFile";
+import { FileError, FileRejection, useDropzone } from "react-dropzone";
+import UploadFileProgressBar from "./UploadFile/UploadFileProgressBar";
+import styled from 'styled-components'
 
-const dropAreaStyles = {
+
+const StyledDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: '4px';
+    height: '100%';
+    width: '100%';
+    border: '2px dashed';
+    // transform: 'scale(4)';
+    borderRadius: '2px';
+    marginBottom: '10px';
+    `;
+
+const dropzone = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
@@ -18,19 +38,51 @@ const dropAreaStyles = {
     marginBottom: '10px',
 }
 
-const UploadManifest = () => {
+export function UploadManifest () {
+    const [progress, setProgress] = useState(0);
+    const [file, setFile] = useState<File | null>(null);
+    
+    const onDrop = useCallback((acceptedFiles: File[], fileRejections: FileRejection[]) => {
+        if (acceptedFiles.length > 0) {
+            setProgress(0);
+            setFile(acceptedFiles[0]);
+        }
+    }, []);
+
+    async function upload () {
+        if (!file) return
+        const url = await PostUploadFile(file, setProgress);
+        // onUpload(file, url);
+    }
+
+    const { getRootProps, getInputProps } = useDropzone({
+        onDrop,
+        // accept: ['image/*', '.pdf'],
+        maxSize: 300 * 1024, // 300KB
+        multiple: false,
+    });
+
+    const onDelete = () => {
+        setFile(null);
+        setProgress(0);
+    }
+    
     return (
         <Box sx={{display: 'flex', flexDirection: 'column'}}>
             <FormLabel sx={{color: 'primary.dark', fontWeight: 'fontWeightBold'}} id="upload-manifest">Select a manifest that you'd like to import</FormLabel>
             <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px solid', borderRadius: 2, marginTop: 1, padding: 1, height: '200px'}}>
-                <Box sx={dropAreaStyles}>
+                <Box sx={dropzone}>
+                <StyledDiv {...getRootProps()}>
+                    <input {...getInputProps()} />
                     <TextSnippetIcon  sx={{fontSize: '25px', color: "warning.main"}}/>
                     <Typography variant="body1" sx={{color: 'primary.dark', paddingTop: 1}}>Drag & Drop here or <strong>Browse</strong></Typography>
-                 </Box>
-                 <SubmitButton variant="contained">Upload Manifest</SubmitButton>
-            </Box>        
+                </StyledDiv>
+                </Box>
+                <SubmitButton variant="contained" type="button" onClick={() => upload()}>Upload Manifest</SubmitButton>
+            </Box>
+            <Divider sx={{marginTop: '20px', marginBottom: '20px', width: '100%'}} />
+            {file && <UploadFileProgressBar file={file} progress={progress} onDelete={onDelete} />}
+            {file && <Divider sx={{marginTop: '20px', marginBottom: '20px', width: '100%'}} />}
         </Box>
     );
 }
-
-export default UploadManifest;
