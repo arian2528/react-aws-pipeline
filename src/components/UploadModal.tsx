@@ -72,6 +72,14 @@ const CancelButton = styled(Button)<ButtonProps>(({ theme }) => ({
 
 export const UploadModal = ({open, handleClose}: ModalProps) => {
 
+    const [importFIleCorrect, setImportFileCorrect] = React.useState(false);
+
+    React.useEffect(() => {
+        setTimeout(() => {
+            setImportFileCorrect(true);
+        }, 5000);
+    }, []);
+
     return ( 
         <div>
         <Modal
@@ -82,13 +90,12 @@ export const UploadModal = ({open, handleClose}: ModalProps) => {
             closeAfterTransition
             slots={{ backdrop: Backdrop }}
             slotProps={{
-            backdrop: {
-                timeout: 500,
-            },
+                backdrop: {
+                    timeout: 500,
+                },
             }}
         >
             <Fade in={open}>
-                
                 <Box sx={modal} fontWeight="fontWeightBold">
                     <ThemeProvider theme={theme}>
                     <Stack direction="column" spacing={1} justifyContent='flex-end'>
@@ -118,9 +125,11 @@ export const UploadModal = ({open, handleClose}: ModalProps) => {
                             </Grid>
                         </Grid>
                         <Box sx={{...title, marginBottom: '20px'}}>
+                            { importFIleCorrect &&
                             <Typography color='primary.dark' align='center' variant="h6" component="h6" paddingTop={4} fontWeight='fontWeightBold'>
                                 Data in the import file is correct. Please press Continue to import.
                             </Typography>
+                            }
                         </Box>
                         <Stack direction="row" spacing={2} justifyContent='center'>
                             <SubmitButton variant="contained">Continue Import</SubmitButton>
