@@ -41,18 +41,23 @@ const dropzone = {
 export function UploadManifest () {
     const [progress, setProgress] = useState(0);
     const [file, setFile] = useState<File | null>(null);
+    const [uploadResourceUrl, setUploadResourceUrl] = useState<string | null>(null);
+    const [errorRetrievingImageFromServer, setErrorRetrievingImageFromServer] = useState<boolean>(false);
     
     const onDrop = useCallback((acceptedFiles: File[], fileRejections: FileRejection[]) => {
         if (acceptedFiles.length > 0) {
+            console.log(acceptedFiles[0]);
             setProgress(0);
             setFile(acceptedFiles[0]);
+            setErrorRetrievingImageFromServer(false);
+            setUploadResourceUrl(null);
         }
     }, []);
 
     async function upload () {
         if (!file) return
         const url = await PostUploadFile(file, setProgress);
-        // onUpload(file, url);
+        setUploadResourceUrl(url);
     }
 
     const { getRootProps, getInputProps } = useDropzone({
@@ -65,20 +70,35 @@ export function UploadManifest () {
     const onDelete = () => {
         setFile(null);
         setProgress(0);
+        setErrorRetrievingImageFromServer(false);
+        setUploadResourceUrl(null);
     }
     
+    const handleImageLoadError = () => {
+        setErrorRetrievingImageFromServer(true);
+    }
+
     return (
         <Box sx={{display: 'flex', flexDirection: 'column'}}>
             <FormLabel sx={{color: 'primary.dark', fontWeight: 'fontWeightBold'}} id="upload-manifest">Select a manifest that you'd like to import</FormLabel>
+            
             <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', border: '1px solid', borderRadius: 2, marginTop: 1, padding: 1, height: '200px'}}>
+                { uploadResourceUrl  && file
+                ? errorRetrievingImageFromServer
+                    ? <span>Can't retrieve data from server</span>
+                    : <img src={`${uploadResourceUrl}?w=248&fit=crop&auto=format`} alt={file.name} loading="lazy" onError={handleImageLoadError}/>
+                :
+                <React.Fragment>
                 <Box sx={dropzone}>
-                <StyledDiv {...getRootProps()}>
-                    <input {...getInputProps()} />
-                    <TextSnippetIcon  sx={{fontSize: '25px', color: "warning.main"}}/>
-                    <Typography variant="body1" sx={{color: 'primary.dark', paddingTop: 1}}>Drag & Drop here or <strong>Browse</strong></Typography>
-                </StyledDiv>
+                    <StyledDiv {...getRootProps()}>
+                        <input {...getInputProps()} />
+                        <TextSnippetIcon  sx={{fontSize: '25px', color: "warning.main"}}/>
+                        <Typography variant="body1" sx={{color: 'primary.dark', paddingTop: 1}}>Drag & Drop here or <strong>Browse</strong></Typography>
+                    </StyledDiv>
                 </Box>
                 <SubmitButton variant="contained" type="button" onClick={() => upload()}>Upload Manifest</SubmitButton>
+                </React.Fragment>
+                }
             </Box>
             <Divider sx={{marginTop: '20px', marginBottom: '20px', width: '100%'}} />
             {file && <UploadFileProgressBar file={file} progress={progress} onDelete={onDelete} />}
