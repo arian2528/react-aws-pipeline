@@ -1,11 +1,11 @@
-import React, { Fragment } from "react"
+import React, { Fragment, useState } from "react"
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import { Box, Divider, FormControlLabel, FormLabel, Grid, Stack, Switch, SwitchProps, Typography, styled } from "@mui/material"
 
 const IOSSwitch = styled((props: SwitchProps) => (
   <Switch focusVisibleClassName=".Mui-focusVisible" disableRipple {...props} />
 ))(({ theme }) => ({
-  width: 52,
+  width: 50,
   height: 26,
   padding: 0,
   '& .MuiSwitch-switchBase': {
@@ -56,14 +56,17 @@ const IOSSwitch = styled((props: SwitchProps) => (
 }));
 
 const ToleranceWindow = () => {
+
+    const [toggleState, setToggleState] = useState(true);
+
     return (
       <Fragment>
         <FormLabel sx={{color: 'primary.dark', fontWeight: 'fontWeightBold'}} id="tolerance-window">Tolerance Window:</FormLabel>
         <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1, height: '20px', paddingTop: 1 }}>
           <Stack direction="row" spacing={2} alignItems="center" height='20px'>
             <Stack direction="row" spacing={1} alignItems="center">
-              <IOSSwitch sx={{ m: 1 }} defaultChecked onClick={() => console.log()}/>
-              <Typography color='primary.dark'>Toggle ON</Typography>
+              <IOSSwitch sx={{ m: 1 }} defaultChecked onClick={() => setToggleState(!toggleState)}/>
+              <Typography color='primary.dark'>Toggle {toggleState ? 'ON' : 'OFF'}</Typography>
             </Stack>
             <Divider orientation="vertical" variant="middle" sx={{background: 'black'}} flexItem />
             <Stack direction="row" spacing={1} alignItems="center">
