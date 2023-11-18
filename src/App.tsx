@@ -23,7 +23,7 @@ function App() {
     <div className="App">
       <Wrapper>
         <Container maxWidth="sm">
-          <Link component="button" onClick={() => setOpenModal(true)}>Upload Manifest</Link>
+          <Link component="button" onClick={() => setOpenModal(true)}>Upload Import</Link>
         </Container>    
       </Wrapper>
       <UploadModal  open={openModal} handleClose={handleClose} />
