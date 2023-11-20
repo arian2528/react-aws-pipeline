@@ -7,6 +7,7 @@ import { PostUploadFile } from "./UploadFile/PostUploadFile";
 import { FileError, FileRejection, useDropzone } from "react-dropzone";
 import UploadFileProgressBar from "./UploadFile/UploadFileProgressBar";
 import styled from 'styled-components'
+import { AWSUploadFile } from "./UploadFile/AWSUploadFile";
 
 
 const StyledDiv = styled.div`
@@ -56,14 +57,15 @@ export function UploadManifest () {
 
     async function upload () {
         if (!file) return
-        const url = await PostUploadFile(file, setProgress);
-        setUploadResourceUrl(url);
+        await AWSUploadFile(file, setProgress);
+        // setUploadResourceUrl(url);
     }
 
     const { getRootProps, getInputProps } = useDropzone({
         onDrop,
         // accept: ['image/*', '.pdf'],
-        maxSize: 300 * 1024, // 300KB
+        // accept: ['.pdf', '.csv'],
+        maxSize: 30000 * 1024, // 30MB
         multiple: false,
     });
 

@@ -1,6 +1,16 @@
-export function PostUploadFile(file: File, setProgress: (percentage: number) => void) {
-    const url = 'https://api.cloudinary.com/v1_1/hzxyensd5/image/upload';
-    const key = 'docs_upload_example_us_preset';
+import { getCloudinaryKey, getCloudinaryUrl } from "./Services/Cloudinary";
+import { handleTextFileAsBinaryString } from "./Utils";
+
+export async function PostUploadFile(cloudService: string,  file: File, setProgress: (percentage: number) => void) {
+    const url = getCloudinaryUrl();
+    const key = getCloudinaryKey();
+    let fileAsBinary: string;
+
+    console.log('file', file);
+
+    if (file.type === 'text') { 
+      fileAsBinary = await handleTextFileAsBinaryString(file) as string; 
+    }
   
     return new Promise<string>((res, rej) => {
       const xhr = new XMLHttpRequest();
@@ -19,9 +29,19 @@ export function PostUploadFile(file: File, setProgress: (percentage: number) => 
       };
   
       const formData = new FormData();
-      formData.append('file', file);
-      formData.append('upload_preset', key);
+
+      if (file.type === 'image/*') formData.append('resource_type', 'image');
+      if (file.type === 'video/*') formData.append('resource_type', 'video');
+      if (file.type === 'text') formData.append('resource_type', 'raw');
+      if (cloudService === 'cloudinary') formData.append('upload_preset', key);
   
+
+      if (file.type !== 'text') { 
+        formData.append('file', file);
+      } else {
+        formData.append('file', fileAsBinary);
+      }
+
       xhr.send(formData);
     });
   }

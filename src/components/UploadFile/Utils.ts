@@ -9,3 +9,25 @@ export function formatBytes(bytes: number, decimals = 2) {
 
     return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`
 }
+
+export function handleTextFileAsBinaryString(file: File) {
+    return new Promise<string>((res, rej) => {
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+            res(evt.target?.result as string);
+        };
+        reader.onerror = (evt) => rej(evt);
+        reader.readAsBinaryString(file);
+    });
+}
+
+export function handleTextFileAsArrayBuffer(file: File) {
+    return new Promise<ArrayBuffer>((res, rej) => {
+        const reader = new FileReader();
+        reader.onload = (evt) => {
+            res(evt.target?.result as ArrayBuffer);
+        };
+        reader.onerror = (evt) => rej(evt);
+        reader.readAsArrayBuffer(file);
+    });
+}
