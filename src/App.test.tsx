@@ -2,8 +2,8 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders Basic React app using Docker, Hook up to AWS CI/CD CodePipeline on S3 using GitHub Actions message', () => {
+test('renders Upload Import', () => {
   render(<App />);
-  const linkElement = screen.getByText(`Basic React app using Docker, Hook up to AWS CI/CD CodePipeline on S3 using GitHub Actions`);
+  const linkElement = screen.getByText(`Upload Import`);
   expect(linkElement).toBeInTheDocument();
 });
