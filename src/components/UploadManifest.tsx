@@ -57,9 +57,9 @@ export function UploadManifest () {
 
     async function upload () {
         if (!file) return
-        // await AWSUploadFile(file, setProgress);
-        const url = await PostUploadFile('cloudinary' ,file, setProgress);
-        setUploadResourceUrl(url);
+        await AWSUploadFile(file, setProgress);
+        // const url = await PostUploadFile('cloudinary' ,file, setProgress);
+        // setUploadResourceUrl(url);
     }
 
     const { getRootProps, getInputProps } = useDropzone({

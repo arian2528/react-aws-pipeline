@@ -14,7 +14,7 @@ phases:
   build:
     commands:
       # run container from built image (builds production files)
-      - docker run react-app-aws-codepipeline:latest
+      - docker run -e AWS_BUCKET_NAME=$AWS_BUCKET_NAME -e AWS_REGION=$AWS_REGION -e AWS_ACCESS_KEY=$AWS_ACCESS_KEY -e AWS_SECRET_KEY=$AWS_SECRET_KEY react-app-aws-codepipeline:latest
       # set container id to variable
       - CONTAINER=$(docker ps -alq)
       # copy build files from container to host
