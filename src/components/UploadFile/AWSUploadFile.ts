@@ -1,11 +1,11 @@
 import AWS from 'aws-sdk'
 
-const S3_BUCKET: string = process.env.AWS_BUCKET_NAME || '';
-const REGION: string = process.env.AWS_REGION || '';
+const S3_BUCKET: string = process.env.REACT_APP_WS_BUCKET_NAME || '';
+const REGION: string = process.env.REACT_APP_AWS_REGION || '';
 
 const creds: {accessKeyId: string, secretAccessKey: string} = {
-    accessKeyId: process.env.AWS_ACCESS_KEY || '',
-    secretAccessKey: process.env.AWS_SECRET_KEY || ''
+    accessKeyId: process.env.REACT_APP_AWS_ACCESS_KEY || '',
+    secretAccessKey: process.env.REACT_APP_AWS_SECRET_KEY || ''
 }
 
 AWS.config.update(creds)

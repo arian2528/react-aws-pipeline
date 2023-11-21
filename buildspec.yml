@@ -11,7 +11,13 @@ phases:
     runtime-versions:
       docker: 19
 
+  pre_build:
     commands:
+      # export the env variables
+      - echo REACT_APP_WS_BUCKET_NAME=${AWS_BUCKET_NAME} >> .env
+      - echo REACT_APP_AWS_REGION=${AWS_REGION} >> .env
+      - echo REACT_APP_AWS_ACCESS_KEY=${AWS_ACCESS_KEY} >> .env
+      - echo REACT_APP_AWS_SECRET_KEY=${AWS_SECRET_KEY} >> .env
       # log in to docker account to prevent rate limiting
       - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
       # build the Docker image for the application
