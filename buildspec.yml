@@ -1,10 +1,6 @@
 version: 0.2
-env:
-  variables:
-    AWS_BUCKET_NAME: $AWS_BUCKET_NAME
-    AWS_REGION: $AWS_REGION
-    AWS_ACCESS_KEY: $AWS_ACCESS_KEY
-    AWS_SECRET_KEY: $AWS_SECRET_KEY
+
+#https://stephenslee.medium.com/how-to-set-environment-variables-in-aws-codebuild-for-the-react-js-frontend-application-86d58f3d76e0
 
 phases:
   install:
@@ -20,13 +16,13 @@ phases:
       - echo REACT_APP_AWS_SECRET_KEY=${AWS_SECRET_KEY} >> .env
       # log in to docker account to prevent rate limiting
       - docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-      # build the Docker image for the application
-      - docker build -t react-app-aws-codepipeline:latest -f Dockerfile.prod .
 
   build:
     commands:
+      # build the Docker image for the application
+      - docker build -t react-app-aws-codepipeline:latest -f Dockerfile.prod .
       # run container from built image (builds production files)
-      - docker run -e AWS_BUCKET_NAME=$AWS_BUCKET_NAME -e AWS_REGION=$AWS_REGION -e AWS_ACCESS_KEY=$AWS_ACCESS_KEY -e AWS_SECRET_KEY=$AWS_SECRET_KEY react-app-aws-codepipeline:latest
+      - docker run react-app-aws-codepipeline:latest
       # set container id to variable
       - CONTAINER=$(docker ps -alq)
       # copy build files from container to host
